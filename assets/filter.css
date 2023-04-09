@@ -1,0 +1,38 @@
+.dashboard--boasVindas{
+
+    margin:3.5em auto 2.5em;
+    width: 940px;
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5em;
+
+}
+.dashboard--boasVindas__titulo{
+    color: var(--corDaFontePrincipal);
+    font-size:1.5em;
+    font-weight: 400;
+}
+.dashboard--boasVindas__filtro, .dashboard--boasVindas__adicionar{
+    color: var(--corDaFontePrincipal);
+    display: flex;
+    gap: .5em;
+
+}
+.dashboard--boasVindas__filtro{
+    margin-left: auto;
+}
+.dashboard--boasVindas__filtro::before, .dashboard--boasVindas__adicionar::before{
+    background-image: url("/assets/imgs/filter.svg");
+
+}
+.dashboard--boasVindas__filtro::before,.dashboard--boasVindas__adicionar::before{
+    display: inline-block;
+    content: "";
+    width: 1.5em;
+    background-repeat: no-repeat;
+}
+
+.dashboard--boasVindas__adicionar::before{
+
+background-image: url("/assets/imgs/icon-adicionar.svg");
+}

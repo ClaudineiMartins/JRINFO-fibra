@@ -1,0 +1,27 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url("assets/header.css");
+@import url("assets/filter.css");
+
+:root {
+    --corDeFundo:#E0E0E0; /*cinza + escuro*/
+    --corDeFundoPagina:#F0F0F0; /*cinza*/
+    --corDasSessoes:#FFFFFF; /*branco*/
+    --corDeDestaque:#4C65E4; /*azul*/
+    --corDeDesataqueTexto:#4C65E4; /*azul texto*/
+    --corDaFontePrincipal:#091551; /*azul + escuro*/
+    --fontPrincipal: Inter;
+
+
+
+}
+
+body{
+    font-family: var(--fontPrincipal) ;
+    background-color: var(--corDeFundoPagina);
+}
+
+
+
+
+

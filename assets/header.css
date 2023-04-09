@@ -1,0 +1,19 @@
+.cabecalho{
+    box-sizing: border-box;
+
+    padding:0 79px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    background-color: var(--corDeFundo);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25);
+}
+.cabecalho__logo{
+    width: 96px;
+}
+.cabecalho__funcionario{
+    text-decoration: none;
+    color: var(--corDeDesataqueTexto);
+}
