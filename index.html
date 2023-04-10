@@ -11,30 +11,37 @@
 <body>
     <header class="cabecalho">
         <img class="cabecalho__logo" src="assets/imgs/logo.svg" alt="">
-        <a class="cabecalho__funcionario" href="html/funcionarios.html">Funcionarios</a>
+        <a class="cabecalho__link" href="html/funcionarios.html">Funcionarios</a>
     </header>
     <main>
         <div class="dashboard--boasVindas">
             <h1 class="dashboard--boasVindas__titulo">Olá, Usuario</h1>
-            <span class="dashboard--boasVindas__filtro">Criar Filtro</span>
-            <Span class="dashboard--boasVindas__adicionar">Adicionar</Span>
-        </div>
+            <button class="dashboard--boasVindas__filtro">
+                <i class="fa-solid fa-filter"></i>
+                Criar Filtro</button>
+            <button class="dashboard--boasVindas__adicionar">
+                <i class="fa-solid fa-circle-plus fa-lg"></i>Adicionar
+            </button>        
+            </div>
         <section class="filter">
-            <div class="filter__container">
+            <div class="filter__container filter__container--invisivel">
                 <div class="filter__container--opcao">
-                    <span class="filter__container--opcao__titulo" >Funcionario</span>
+                    <span class="filter__container--opcao__titulo" >Funcionario:</span>
                     <select class="filter__container--opcao__dropdown">
                         <option value="todos">Todos</option>
                     </select>
                     
                 </div>
-
-                <Span>Mar de 2023</Span>
+                <div class="filter__container--periodo">
+                    <button class="filter__container--periodo__mesAnterior"></button>
+                    <Span class="filter__container--periodo__mes">Mar de 2023</Span>
+                    <button class="filter__container--periodo__mesPosterior"></button>
+                </div>
 
 
 
                 <div class="filter__container--opcao">
-                    <span class="filter__container--opcao__titulo" >Tipo</span>
+                    <span class="filter__container--opcao__titulo" >Tipo:</span>
                     <select class="filter__container--opcao__dropdown">
                         <option value="todos">Todos</option>
                     </select>
@@ -45,12 +52,90 @@
             
 
         </section>
+
+        <section class="UltimosCadastros">
+            <span class="UltimosCadastros__titulo">Últimos Cadastros</span>
+            <div class="UltimosCadastros-container">
+            <Table class="UltimosCadastros-tabela">
+                <tr class="ultimosCadastros-tabela__linha">
+                    <th class="ultimosCadastros-tabela__linha__celula-cabecalho ultimosCadastros-tabela__linha__celula-cabecalhoNome">Nome</th>
+                    <th class="ultimosCadastros-tabela__linha__celula-cabecalho ultimosCadastros-tabela__linha__celula-cabecalhoDescricao">Descrição</th>
+                    <th class="ultimosCadastros-tabela__linha__celula-cabecalho ultimosCadastros-tabela__linha__celula-cabecalhoTipo">Tipo</th>
+                    <th class="ultimosCadastros-tabela__linha__celula-cabecalho ultimosCadastros-tabela__linha__celula-cabecalhoQuantidade">Quantidade</th>
+                    <th class="ultimosCadastros-tabela__linha__celula-cabecalho ultimosCadastros-tabela__linha__celula-cabecalhoData">Data</th>
+                </tr>
+                <tr class="ultimosCadastros-tabela__linha">
+                    <td class="ultimosCadastros-tabela__linha__celula">teste</td>
+                    <td class="ultimosCadastros-tabela__linha__celula">teste</td>
+                    <td class="ultimosCadastros-tabela__linha__celula">teste</td>
+                    <td class="ultimosCadastros-tabela__linha__celula">teste</td>
+                    <td class="ultimosCadastros-tabela__linha__celula">teste</td>
+
+                </tr>
+                <tr class="ultimosCadastros-tabela__linha">
+                    <td class="ultimosCadastros-tabela__linha__celula">teste</td>
+                    <td class="ultimosCadastros-tabela__linha__celula">teste</td>
+                    <td class="ultimosCadastros-tabela__linha__celula">teste</td>
+                    <td class="ultimosCadastros-tabela__linha__celula">teste</td>
+                    <td class="ultimosCadastros-tabela__linha__celula">teste</td>
+                    
+                </tr>
+                <tr class="ultimosCadastros-tabela__linha">
+                    <td class="ultimosCadastros-tabela__linha__celula">teste</td>
+                    <td class="ultimosCadastros-tabela__linha__celula">teste</td>
+                    <td class="ultimosCadastros-tabela__linha__celula">teste</td>
+                    <td class="ultimosCadastros-tabela__linha__celula">teste</td>
+                    <td class="ultimosCadastros-tabela__linha__celula">teste</td>
+                    
+                </tr>
+
+            </Table>
+            <div class="UltimosCadastros-container__containerTotais">
+                <div class="UltimosCadastros-container__containerTotais-tipo">
+                    <span class="containerTotais-tipo_titulo">Total de Horas:</span>
+                    <p class="containerTotais-tipo_valor">Selecione um funcionario</p>
+                </div>
+                <hr>
+                <div class="UltimosCadastros-container__containerTotais-tipo">
+                    <span class="containerTotais-tipo_titulo">Total de Serviços Extras:</span>
+                    <p class="containerTotais-tipo_valor">Selecione um funcionario</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section class="bancoHoras">
+        <span class="bancoHoras__titulo">Saldo Banco de Horas</span>
+        <p class="bancoHoras_quantidade">Nenhum Funcionario Selecionado</p>
+
+
+    </section>
+    <section class="cadastroLancamentos">
+        <h1 class="cadastroLancamentos__titulo">Cadastrar novo Lançamento</h1>
+        <i class="fa-solid fa-circle-xmark fa-lg" ></i>
+        <div class="cadastroFuncionario__formulario">
+            <label class="formulario__descricao" for="nome">Nome </label>
+            <input type="text" id="nome" placeholder="Ex: Lucas Martins" class="formulario__input-grande">
+            <label class="formulario__descricao" for="cargo">Cargo</label>
+            <input type="text" id="cargo" placeholder="Ex:Supervisor em Instalaçoes" class="formulario__input-grande">
+            <label class="formulario__descricao" for="cargo">Admissao</label>
+            <input type="text" id="Admissao" placeholder="Ex: 22/10/2019" class="formulario__input-pequeno">
+            <label class="formulario__descricao" for="salario">salario</label>
+            <input type="text" id="salario" placeholder="Ex: 2189,90" class="formulario__input-pequeno">
+            <input type="submit" value="Cadastrar" class="formualario__botao">
+        
+        
+        
+        </div>
+    </section>
+        
     </main>
     <footer>
 
 
     </footer>
 
-    
+    <script src="https://kit.fontawesome.com/1690ab8251.js" crossorigin="anonymous"></script></body>
+
 </body>
 </html>
