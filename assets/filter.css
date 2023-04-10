@@ -4,7 +4,7 @@
     width: 940px;
     display: flex;
     justify-content: space-between;
-    gap: 1.5em;
+    gap: 4.5em;
 
 }
 .dashboard--boasVindas__titulo{
@@ -16,23 +16,84 @@
     color: var(--corDaFontePrincipal);
     display: flex;
     gap: .5em;
+    font-size: .8em;
+    cursor: pointer;
+    border: none;
+    align-items: center;
 
 }
+.fa-circle-plus,.fa-filter{
+    color: var(--corDeDestaque);
+}
+
 .dashboard--boasVindas__filtro{
     margin-left: auto;
 }
-.dashboard--boasVindas__filtro::before, .dashboard--boasVindas__adicionar::before{
-    background-image: url("/assets/imgs/filter.svg");
 
+.filter__container{
+    
+    justify-content: space-around;
+    align-items: center;
+    display: flex;
+    border-radius: 8px;
+    margin: 0 auto;
+    width: 940px;
+    height: 4em;
+    background-color: var(--corDeDestaque);
 }
-.dashboard--boasVindas__filtro::before,.dashboard--boasVindas__adicionar::before{
-    display: inline-block;
-    content: "";
-    width: 1.5em;
+.filter__container--invisivel{
+    /* display: none; */
+}
+.filter__container--opcao{
+    box-sizing: border-box;
+    padding: .4em;
+    display: flex;
+    gap: .6em;
+    flex-direction: column;
+    border-radius: 8px;
+    background-color: var(--corDasSessoes);
+    width: 15.5em;
+    height: 3em;
+}
+.filter__container--opcao__titulo{
+    font-weight: 500;
+    color: var(--corDaFontePrincipal);
+    font-size: .8em;
+    text-align: center;
+}
+.filter__container--opcao__dropdown{
+    border: none;
+    width: 13em;
+    margin: 0 auto;
+    font-weight: 700;
+}
+.filter__container--periodo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .8em;
+}
+.filter__container--periodo__mesAnterior, .filter__container--periodo__mesPosterior {
+    width: 1.8em;
+    height: 1.8em;
     background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
 }
+.filter__container--periodo__mesAnterior{
+    background-image: url("/assets/imgs/icon_arrow-leftsvg.svg");
 
-.dashboard--boasVindas__adicionar::before{
+}
+.filter__container--periodo__mesPosterior{
+    background-image: url("/assets/imgs/icon\ arrow\ rigth.svg");
 
-background-image: url("/assets/imgs/icon-adicionar.svg");
+}
+.filter__container--periodo__mes{
+    font-size: .9em;
+    font-weight: 700;
+    color: var(--corFonte_secundaria);
+    gap: .8em;
+
 }
