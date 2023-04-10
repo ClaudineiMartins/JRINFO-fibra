@@ -1,0 +1,25 @@
+.cadastroLancamentos{
+    padding: 1em;
+    position: relative;
+    background: var(--corDasSessoes);
+    border-radius: 12px;
+    width: 940px;
+    margin: 0 auto;
+}
+.cadastroLancamentos__titulo{
+    font-size: 2em;
+    text-align: center;
+    
+}
+.fa-circle-xmark{
+    color: var(--corAviso);
+    cursor: pointer;
+    top: 1em;
+    right: 1em;
+    position: absolute;
+}
+.cadastroLancamentos__formulario{
+    padding: 3em;
+    display: flex;
+    flex-direction: column;
+}
