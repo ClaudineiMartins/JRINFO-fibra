@@ -2,15 +2,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import url("assets/header.css");
 @import url("assets/filter.css");
+@import url("assets/tabela-ultimosCadastros.css");
+@import url("assets/bancoHoras.css");
+@import url("assets/reset.css");
+@import url("assets/css-funcionarios/colaboradores.css");
+@import url("assets/css-funcionarios/formulario-cadastro.css");
+@import url("assets/cadastrosLancamentos.css");
+@import url("assets/formulario.css");
+
 
 :root {
     --corDeFundo:#E0E0E0; /*cinza + escuro*/
     --corDeFundoPagina:#F0F0F0; /*cinza*/
     --corDasSessoes:#FFFFFF; /*branco*/
+    --corFonte_secundaria: #FFFFFF;
     --corDeDestaque:#4C65E4; /*azul*/
     --corDeDesataqueTexto:#4C65E4; /*azul texto*/
     --corDaFontePrincipal:#091551; /*azul + escuro*/
     --fontPrincipal: Inter;
+    --corAviso:#fb1359;
 
 
 
@@ -20,8 +30,30 @@ body{
     font-family: var(--fontPrincipal) ;
     background-color: var(--corDeFundoPagina);
 }
+* {
+    scrollbar-width: auto;
+    scrollbar-color: var(--corDeFundo) var(--corDasSessoes);
+  }
 
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    height: .9em;
+    width: .9em;
+  }
 
+  *::-webkit-scrollbar-track {
+    background: transparent;
+
+    
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--corDeFundo);
+    border-radius: 10px;
+    
+  }
+
+  
 
 
 
