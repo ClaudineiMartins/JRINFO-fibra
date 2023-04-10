@@ -13,7 +13,8 @@
 .cabecalho__logo{
     width: 96px;
 }
-.cabecalho__funcionario{
+.cabecalho__link{
+    font-weight: 700;
     text-decoration: none;
     color: var(--corDeDesataqueTexto);
 }
