@@ -1,0 +1,63 @@
+.UltimosCadastros{
+    margin: .8em auto;
+    width: 940px;
+}
+.UltimosCadastros-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: .5em;
+    background-color: var(--corDasSessoes);
+    border-radius: 12px;
+    margin: .8em auto 1em  ;
+    width: 940px;
+    height: 500px;
+}
+.UltimosCadastros__titulo{
+    color: var(--corDaFontePrincipal);
+    font-weight: 500;
+    font-size: 0.8em;
+}
+.UltimosCadastros-tabela{
+    width: 940px;
+    
+}
+.ultimosCadastros-tabela__linha__celula-cabecalho{
+    font-size: 1.125em;
+    color: var(--corDaFontePrincipal);
+    font-weight: 700;
+    text-align: start;
+}
+.ultimosCadastros-tabela__linha__celula-cabecalhoData{
+    width: 4.375em;
+}
+.ultimosCadastros-tabela__linha__celula-cabecalhoQuantidade{
+    width: 7em;
+}
+
+.UltimosCadastros-container__containerTotais{
+    padding: 0 .5em;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 940px;
+    background-color: var(--corDeFundoPagina);
+    height: 36px;
+    border-radius: 8px;
+}
+.UltimosCadastros-container__containerTotais-tipo{
+    width: 50%;
+    display: flex;
+    gap: .5em;
+    font-size: 0.75em;
+    color: var(--corDaFontePrincipal);
+    font-weight: 600;
+}
+hr{
+    border: 1px var(--corDasSessoes) solid;
+    height: 100%;
+}
+.containerTotais-tipo_titulo{
+    padding-left: .5em;
+}
