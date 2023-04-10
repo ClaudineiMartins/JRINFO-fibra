@@ -1,0 +1,52 @@
+.colaboradores_cabecalho{
+    width: 940px;
+    margin: 3em auto;
+    display: flex;
+    justify-content: space-between;
+}
+.colaboradores_cabecalho_titulo{
+    font-size: 2.25em;
+    color: var(--corDaFontePrincipal);
+    font-weight: 400;
+}
+.colaboradores_cabecalho__adicionar{
+    color: var(--corDaFontePrincipal);
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    font-size: .8em;
+    cursor: pointer;
+    border: none;
+}
+
+.colaboradores_cabecalho__adicionar::before {
+    background-image: url("/assets/imgs/icon-adicionar.svg");
+}
+
+.colaboradores__container-tabela{
+    width: 940px;
+    height: 500px;
+    margin: 0 auto;
+    overflow: auto;
+    background-color: var(--corDasSessoes);
+    border-radius: 12px;
+    padding: 20px;
+}
+.colaboradores-tabela,.colaboradores-tabela__linha{
+    width: 940px;
+}
+.fa-trash-can{
+    color: var(--corAviso);
+    cursor: pointer;
+}
+.colaboradores-tabela__linha__celula-cabecalho{
+    font-size: 1.125em;
+    color: var(--corDaFontePrincipal);
+    font-weight: 700;
+    text-align: start;
+    padding-bottom: 1.5em;
+}
+.colaboradores-tabela__linha__celula{
+    padding-bottom: .7em;
+    color: var(--corDaFontePrincipal);
+}
