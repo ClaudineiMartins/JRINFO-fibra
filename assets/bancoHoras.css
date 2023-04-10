@@ -1,0 +1,22 @@
+.bancoHoras{
+    width: 940px;
+    height: 5em;
+    margin: 0 auto;
+    background-color: var(--corDasSessoes);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 12px;
+}
+.bancoHoras__titulo{
+    color: var(--corDaFontePrincipal);
+    font-size: 1.125em;
+    font-weight: 600;
+}
+.bancoHoras_quantidade{
+    color: var(--corFonte_secundaria);
+    background-color: var(--corDeDestaque);
+    padding: 1em;
+    border-radius: 4px;
+    font-size: 1em;
+}
