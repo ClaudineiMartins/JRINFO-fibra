@@ -7,6 +7,7 @@
     <title>JRINFO fibra</title>
     <link rel="stylesheet" href="assets/reset.css">
     <link rel="stylesheet" href="style.css">
+    <script src="js/formulario.js" defer></script>
 </head>
 <body>
     <header class="cabecalho">
@@ -110,23 +111,36 @@
 
 
     </section>
-    <section class="cadastroLancamentos">
+    <section class="cadastroLancamentos ocultaCadastro_JS">
         <h1 class="cadastroLancamentos__titulo">Cadastrar novo Lançamento</h1>
         <i class="fa-solid fa-circle-xmark fa-lg" ></i>
-        <div class="cadastroFuncionario__formulario">
+        <form class="cadastroLancamentos__formulario">
             <label class="formulario__descricao" for="nome">Nome </label>
-            <input type="text" id="nome" placeholder="Ex: Lucas Martins" class="formulario__input-grande">
-            <label class="formulario__descricao" for="cargo">Cargo</label>
-            <input type="text" id="cargo" placeholder="Ex:Supervisor em Instalaçoes" class="formulario__input-grande">
-            <label class="formulario__descricao" for="cargo">Admissao</label>
-            <input type="text" id="Admissao" placeholder="Ex: 22/10/2019" class="formulario__input-pequeno">
-            <label class="formulario__descricao" for="salario">salario</label>
-            <input type="text" id="salario" placeholder="Ex: 2189,90" class="formulario__input-pequeno">
-            <input type="submit" value="Cadastrar" class="formualario__botao">
+            <select data-tipo="nome" required id="nome" class="formulario__input-grande">
+                <option value="Nenhum">Selecione
+            </select>
+            <label class="formulario__descricao" for="descricao">Descrição</label>
+            <input data-tipo="descricao" required type="text" id="descricao" placeholder="Ex:Instalação no cliente Alberto Souza" class="formulario__input-grande">
+            <label class="formulario__descricao" for="tipo">Tipo</label>
+            <select data-tipo="tipo" required id="tipo" class="formulario__input-pequeno">
+                <option value="nenhum">Selecione</option>
+                <option value="Hora Extra">Hora Extra</option>
+                <option value="ServicoExtra">Serviço Extra</option>
+
+            </select>
+            <label  class="formulario__descricao" for="qunatidade">Quantidade</label>
+            <input data-tipo="quantidade" required type="text" id="quantidade" placeholder="Ex: 2189,90" class="formulario__input-pequeno">
+            <label class="formulario__descricao" for="data">Data</label>
+            <input data-tipo="data" required type="date" id="data" placeholder="Ex: 2189,90" class="formulario__input-pequeno">
+            
+            <button type="submit" value="Cadastrar" class="formualario__botao">Cadastrar</button>
         
         
         
-        </div>
+        </form>
+    </section>
+    <section class="backdropFilter-invivel_JS backdropFilter-aprente">
+
     </section>
         
     </main>
