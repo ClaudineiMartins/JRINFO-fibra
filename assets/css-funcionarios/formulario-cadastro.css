@@ -1,10 +1,31 @@
+.backdropFilter-invivel_JS--funcionario{
+    display: none;
+}
+
+.backdropFilter-aprente--funcionario{
+
+    position: fixed;
+    backdrop-filter: brightness(0.5);    
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    
+}
+
+.ocultaCadastro_JS--funcionario{
+    display: none;
+}
 .cadastroFuncionario{
     padding: 1em;
-    position: relative;
+    position: fixed;
     background: var(--corDasSessoes);
     border-radius: 12px;
     width: 940px;
-    margin: 0 auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
 }
 .cadastroFuncionario__titulo{
     font-size: 2em;
@@ -22,30 +43,4 @@
     padding: 3em;
     display: flex;
     flex-direction: column;
-}
-.formulario__descricao{
-    padding: .5em 0;
-    color: var(--corDaFontePrincipal);
-}
-.formulario__input-grande,.formulario__input-pequeno{
-    border: none;
-    background-color: var(--corDeFundoPagina);
-    border-radius: 8px;
-    height: 2.5em;
-}
-.formulario__input-grande{
-    width: 100%;
-}
-.formulario__input-pequeno{
-    width: 35%;
-}
-.formualario__botao{
-    color: var(--corFonte_secundaria);
-    margin: 3em auto;
-    background-color: var(--corDeDestaque);
-    width: 15em;
-    height: 2.5em;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
 }
