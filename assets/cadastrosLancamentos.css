@@ -1,0 +1,49 @@
+
+.backdropFilter-invivel_JS{
+    display: none;
+}
+
+.backdropFilter-aprente{
+
+    position: fixed;
+    backdrop-filter: brightness(0.5);
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+
+    
+}
+
+.ocultaCadastro_JS{
+    display: none;
+}
+.cadastroLancamentos{
+    
+    padding: 1em;
+    position: fixed;
+    background: var(--corDasSessoes);
+    border-radius: 12px;
+    width: 940px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+.cadastroLancamentos__titulo{
+    font-size: 2em;
+    text-align: center;
+    
+}
+.fa-circle-xmark{
+    color: var(--corAviso);
+    cursor: pointer;
+    top: 1em;
+    right: 1em;
+    position: absolute;
+}
+.cadastroLancamentos__formulario{
+    padding: 3em;
+    display: flex;
+    flex-direction: column;
+}
