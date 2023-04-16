@@ -70,8 +70,59 @@ document.querySelector(".fa-circle-xmark").addEventListener("click", () => {
   toggleFormVisibility();
 });
 
-// document.querySelector(".formualario__botao").addEventListener("click", () => {
-//   toggleFormVisibility(false);
-// });
+
+
+
+
+
+
+
+
+
+const formulario = document.querySelectorAll('[data-tipo]')
+formulario.forEach(input => {
+  input.addEventListener('blur', () => {
+    alteraTypeInputQuantidade()
+    const inputNome = document.querySelector('[data-tipo="nome"]');
+    const inputTipo = document.querySelector('[data-tipo="tipo"]');
+    console.log(validaEnvioFormulario(inputNome,inputTipo));
+    if(validaEnvioFormulario(inputNome,inputTipo)){
+
+      console.log(validaEnvioFormulario(inputNome,inputTipo));
+      cadastroFormulario()
+    }
+    else{
+      mostramensagemErro()
+    }
+
+  })
+});
+
+function alteraTypeInputQuantidade (){
+  let inputTipo = document.querySelector('[data-tipo="tipo"]');
+  let inputQuantidade = document.querySelector('[data-tipo="quantidade"]');
+  inputQuantidade.type ="text"
+    
+  if(inputTipo.value==='Hora Extra'){
+    inputQuantidade.type="time"
+  }
+  
+  
+
+}
+function validaEnvioFormulario(nome,tipo){
+const formularioValido = false;
+if(nome.value != "Nenhum" & tipo.value != "nenhum"){
+  console.log('ta certo')
+  formularioValido = true
+}
+
+return formularioValido;
+
+
+
+
+}
+function mostramensagemErro (){}
 
 
