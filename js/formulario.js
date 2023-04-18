@@ -1,52 +1,8 @@
 
 
-// let botaoAdd = document.querySelector(".dashboard--boasVindas__adicionar");
-// let btnFecharForm = document.querySelector('.fa-circle-xmark')
-// let btnCadastraForm = document.querySelector('.formualario__botao')
-
-// botaoAdd.addEventListener('click', function(){
-//     console.log('test')
-
-//     const sessaoForm =".cadastroLancamentos"
-//     const classForm = "ocultaCadastro_JS"
-//     const sessaoFundo= ".backdropFilter-aprente"
-//     const classFundo = "backdropFilter-invivel_JS"
-// mostraFormLancamento(sessaoForm,classForm,sessaoFundo,classFundo)
-// })
-
-// btnFecharForm.addEventListener('click', function (){
-//     const sessaoForm =".cadastroLancamentos"
-//     const classForm = "ocultaCadastro_JS"
-//     const sessaoFundo= ".backdropFilter-aprente"
-//     const classFundo = "backdropFilter-invivel_JS"
-
-//     removeFormLancamento(sessaoForm,classForm,sessaoFundo,classFundo)
-// } )
-
-// btnCadastraForm.addEventListener('click', function (){
-//     const sessaoForm =".cadastroLancamentos"
-//     const classForm = "ocultaCadastro_JS"
-//     const sessaoFundo= ".backdropFilter-aprente"
-//     const classFundo = "backdropFilter-invivel_JS"
-
-//     removeFormLancamento(sessaoForm,classForm,sessaoFundo,classFundo)
-// })
+const FORMULARIO = document.querySelector(".cadastroLancamentos__formulario");
 
 
-
-// function mostraFormLancamento(sectionForm, classeForm, sectionFundo, classeFundo){
-    
-    
-//     document.querySelector(sectionForm).classList.remove(classeForm)
-//     document.querySelector(sectionFundo).classList.remove(classeFundo)
-// }
-
-// function removeFormLancamento (sectionForm, classeForm, sectionFundo, classeFundo){
-//     document.querySelector(sectionForm).classList.add(classeForm)
-//     document.querySelector(sectionFundo).classList.add(classeFundo)
-// }
-
-/*CHA*/
 const FORM_SECTION_SELECTOR = ".cadastroLancamentos";
 const FORM_HIDDEN_CLASS = "ocultaCadastro_JS";
 const BACKDROP_SECTION_SELECTOR = ".backdropFilter-aprente";
@@ -55,8 +11,6 @@ const BACKDROP_HIDDEN_CLASS = "backdropFilter-invivel_JS";
 const toggleFormVisibility = () => {
   const formSection = document.querySelector(FORM_SECTION_SELECTOR);
   const backdropSection = document.querySelector(BACKDROP_SECTION_SELECTOR);
-//   const formClass = isVisible ? "" : FORM_HIDDEN_CLASS;
-//   const backdropClass = isVisible ? "" : BACKDROP_HIDDEN_CLASS;
 
   formSection.classList.toggle(FORM_HIDDEN_CLASS);
   backdropSection.classList.toggle(BACKDROP_HIDDEN_CLASS);
@@ -64,6 +18,8 @@ const toggleFormVisibility = () => {
 
 document.querySelector(".dashboard--boasVindas__adicionar").addEventListener("click", () => {
   toggleFormVisibility();
+  InputDropdownFormularioObrigatorio()
+
 });
 
 document.querySelector(".fa-circle-xmark").addEventListener("click", () => {
@@ -72,31 +28,26 @@ document.querySelector(".fa-circle-xmark").addEventListener("click", () => {
 
 
 
-
-
-
-
-
-
-
-const formulario = document.querySelectorAll('[data-tipo]')
-formulario.forEach(input => {
+const inputTipo = document.querySelectorAll('[data-tipo]')
+inputTipo.forEach(input => {
   input.addEventListener('blur', () => {
-    alteraTypeInputQuantidade()
-    const inputNome = document.querySelector('[data-tipo="nome"]');
-    const inputTipo = document.querySelector('[data-tipo="tipo"]');
-    console.log(validaEnvioFormulario(inputNome,inputTipo));
-    if(validaEnvioFormulario(inputNome,inputTipo)){
-
-      console.log(validaEnvioFormulario(inputNome,inputTipo));
-      cadastroFormulario()
-    }
-    else{
-      mostramensagemErro()
-    }
-
+    validaCadastroLancamentoForm(input)
   })
 });
+
+function validaCadastroLancamentoForm(input){
+    alteraTypeInputQuantidade()
+    InputDropdownFormularioObrigatorio()
+
+    if(verificaDataInvalida(input)){
+      input.setCustomValidity('A data nao pode ser uma data futura')
+    }
+    else{
+      input.setCustomValidity('')
+    }
+
+    mostramensagemErro(input)
+}
 
 function alteraTypeInputQuantidade (){
   let inputTipo = document.querySelector('[data-tipo="tipo"]');
@@ -107,22 +58,58 @@ function alteraTypeInputQuantidade (){
     inputQuantidade.type="time"
   }
   
+ 
+}
+
+function InputDropdownFormularioObrigatorio(){
+  
+  let inputsDropdown = FORMULARIO.querySelectorAll("select");
+  inputsDropdown.forEach(input => {
+    if(input.value==="nenhum"){
+      input.setCustomValidity('Selecione Uma Opção')
+      console.log(input.validity.valid);
+
+    }
+    else{
+      input.setCustomValidity('')
+      console.log(input.validity.valid);
+
+
+    }
+    
+  })
   
 
-}
-function validaEnvioFormulario(nome,tipo){
-const formularioValido = false;
-if(nome.value != "Nenhum" & tipo.value != "nenhum"){
-  console.log('ta certo')
-  formularioValido = true
-}
-
-return formularioValido;
-
-
 
 
 }
-function mostramensagemErro (){}
+
+function verificaDataInvalida (input){
+  let dataHoje = new Date();
+  let dataRecebida = new Date(input.value)
+  if(dataRecebida=='Invalid Date'){
+    console.log('nao é uma data')
+    return
+  }
+  let datavalida = dataRecebida>=dataHoje
+ 
+  console.log(datavalida)
+  return datavalida;
+
+}
 
 
+function mostramensagemErro(input){
+  if(!input.validity.valid){
+    console.log(input)
+    input.parentElement.classList.add('container-form--invalido')
+  }
+  else{
+    input.parentElement.classList.remove('container-form--invalido')
+  }
+console.log('preencha todos os campos')
+}
+
+function cadastroFormulario(){
+  console.log('cadastrado')
+}
