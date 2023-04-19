@@ -75,3 +75,72 @@ document.querySelector(".fa-circle-xmark").addEventListener("click", () => {
 // });
 
 
+
+
+
+
+/*Adicionar valor a tabela*/
+
+const formulario = document.querySelector('.cadastroLancamentos__formulario');
+const btnCadastrarForm = formulario.querySelector('.formualario__botao');
+const inputForm = formulario.querySelectorAll('[data-tipo]');
+const dados ={}
+
+
+inputForm.forEach(input => {
+  input.addEventListener('blur', function(event){
+    const tiposDeInput = event.target.dataset.tipo
+    const valorDoInput = event.target.value
+    dados[tiposDeInput] = valorDoInput;
+    console.log(dados)
+  })
+})
+
+btnCadastrarForm.addEventListener('click', function(event){
+  const tabela = document.querySelector('.UltimosCadastros-tabela');
+  const novaLinha = tabela.insertRow(-1);
+
+  for (const [tipo, valor] of Object.entries(dados)) {
+    const novaCelula = novaLinha.insertCell();
+    novaCelula.textContent = valor;
+
+    switch (tipo) {
+      case 'nome':
+        novaLinha.appendChild(novaCelula);
+        break;
+      case 'descricao':
+        novaLinha.appendChild(novaCelula);
+        break;
+      case 'tipo':
+        novaLinha.appendChild(novaCelula);
+        break;
+      case 'quantidade':
+        novaLinha.appendChild(novaCelula);
+        break;
+      case 'data':
+        novaLinha.appendChild(novaCelula);
+        break;
+      // adicione outras cases para cada tipo de dado que você tem
+    }
+  }
+
+})
+
+// PegaValoresFormulario(inputForm);
+
+
+
+// function PegaValoresFormulario (inputs){
+//   console.log(inputs)
+//   inputs.forEach(input => {
+//     const valorInput = input.value
+//     console.log(valorInput)
+//     AdicionarNaTabela(nome,descricao,tipo,quantidade,data)
+//   })
+// }
+
+
+
+function AdicionarNaTabela(nome,descricao,tipo,quantidade,data){
+  // console.log(nome,descricao,tipo,quantidade,data)
+}
