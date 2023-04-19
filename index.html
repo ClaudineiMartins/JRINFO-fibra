@@ -115,24 +115,40 @@
         <h1 class="cadastroLancamentos__titulo">Cadastrar novo Lançamento</h1>
         <i class="fa-solid fa-circle-xmark fa-lg" ></i>
         <form class="cadastroLancamentos__formulario">
-            <label class="formulario__descricao" for="nome">Nome </label>
-            <select data-tipo="nome" required id="nome" class="formulario__input-grande">
-                <option value="Nenhum">Selecione
-            </select>
-            <label class="formulario__descricao" for="descricao">Descrição</label>
-            <input data-tipo="descricao" required type="text" id="descricao" placeholder="Ex:Instalação no cliente Alberto Souza" class="formulario__input-grande">
-            <label class="formulario__descricao" for="tipo">Tipo</label>
-            <select data-tipo="tipo" required id="tipo" class="formulario__input-pequeno">
-                <option value="nenhum">Selecione</option>
-                <option value="Hora Extra">Hora Extra</option>
-                <option value="ServicoExtra">Serviço Extra</option>
+            <div class="container-form">
+                <label class="formulario__descricao" for="nome">Nome </label>
+                <select data-tipo="nome" required id="nome" class="formulario__input-grande input-Form">
+                    <option value="nenhum">Selecione
+                    <option value="teste">Teste
+        
+                </select>
+                <span class="mensagem-erro">Verifique esse campo</span>
+            </div>
+            <div class="container-form">
+                <label class="formulario__descricao" for="descricao">Descrição</label>
+                <input data-tipo="descricao" required type="text" id="descricao" placeholder="Ex:Instalação no cliente Alberto Souza" class="formulario__input-grande input-Form">
+                <span class="mensagem-erro">Verifique esse campo</span>
+            </div>
+            <div class="container-form">
+                <label class="formulario__descricao" for="tipo">Tipo</label>
+                <select data-tipo="tipo" required id="tipo" class="formulario__input-pequeno input-Form">
+                    <option value="nenhum">Selecione</option>
+                    <option value="Hora Extra">Hora Extra</option>
+                    <option value="ServicoExtra">Serviço Extra</option>
 
-            </select>
-            <label  class="formulario__descricao" for="qunatidade">Quantidade</label>
-            <input data-tipo="quantidade" required type="text" id="quantidade" placeholder="Ex: 2189,90" class="formulario__input-pequeno">
-            <label class="formulario__descricao" for="data">Data</label>
-            <input data-tipo="data" required type="date" id="data" placeholder="Ex: 2189,90" class="formulario__input-pequeno">
-            
+                </select>
+                <span class="mensagem-erro">Verifique esse campo</span>
+            </div>
+            <div class="container-form">
+                <label class="formulario__descricao" for="data">Data</label>
+                <input data-tipo="data" required type="date" id="data" placeholder="Ex: 2189,90" class="formulario__input-pequeno input-Form">
+                <span class="mensagem-erro">Verifique esse campo</span>
+            </div>
+            <div class="container-form">
+                <label  class="formulario__descricao" for="quantidade">Quantidade</label>
+                <input data-tipo="quantidade" required type="text" id="quantidade" placeholder="Ex: 2189,90" class="formulario__input-pequeno input-Form">
+                <span class="mensagem-erro">Verifique esse campo</span>
+            </div>
             <button type="submit" value="Cadastrar" class="formualario__botao">Cadastrar</button>
         
         
