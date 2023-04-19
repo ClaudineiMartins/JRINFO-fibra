@@ -32,12 +32,13 @@ const inputTipo = document.querySelectorAll('[data-tipo]')
 inputTipo.forEach(input => {
   input.addEventListener('blur', () => {
     validaCadastroLancamentoForm(input)
+
   })
 });
 
 function validaCadastroLancamentoForm(input){
     alteraTypeInputQuantidade()
-    InputDropdownFormularioObrigatorio()
+    teste(input)
 
     if(verificaDataInvalida(input)){
       input.setCustomValidity('A data nao pode ser uma data futura')
@@ -72,7 +73,6 @@ function InputDropdownFormularioObrigatorio(){
     }
     else{
       input.setCustomValidity('')
-      console.log(input.validity.valid);
 
 
     }
@@ -81,19 +81,34 @@ function InputDropdownFormularioObrigatorio(){
   
 
 
-
 }
+function teste(input){
+  
+  if(input.tagName === "SELECT" && input.value==='nenhum'){
+    console.log('é um select vazio')
+    console.log(input.value)
+
+      input.setCustomValidity('Selecione Uma Opção')
+    }
+    else{   
+       console.log(input.value)
+
+      console.log('nao é select')
+    }
+    
+  }
+  
+
+
 
 function verificaDataInvalida (input){
   let dataHoje = new Date();
   let dataRecebida = new Date(input.value)
   if(dataRecebida=='Invalid Date'){
-    console.log('nao é uma data')
     return
   }
   let datavalida = dataRecebida>=dataHoje
  
-  console.log(datavalida)
   return datavalida;
 
 }
@@ -101,15 +116,12 @@ function verificaDataInvalida (input){
 
 function mostramensagemErro(input){
   if(!input.validity.valid){
-    console.log(input)
     input.parentElement.classList.add('container-form--invalido')
   }
   else{
     input.parentElement.classList.remove('container-form--invalido')
   }
-console.log('preencha todos os campos')
 }
 
 function cadastroFormulario(){
-  console.log('cadastrado')
 }
