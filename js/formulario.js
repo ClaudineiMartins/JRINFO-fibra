@@ -1,5 +1,3 @@
-
-
 const FORMULARIO = document.querySelector(".cadastroLancamentos__formulario");
 
 
@@ -38,16 +36,18 @@ inputTipo.forEach(input => {
 
 function validaCadastroLancamentoForm(input){
     alteraTypeInputQuantidade()
-    teste(input)
+    defineSelectObrigatorio(input)
 
     if(verificaDataInvalida(input)){
       input.setCustomValidity('A data nao pode ser uma data futura')
+      
     }
     else{
       input.setCustomValidity('')
     }
 
     mostramensagemErro(input)
+    
 }
 
 function alteraTypeInputQuantidade (){
@@ -82,7 +82,7 @@ function InputDropdownFormularioObrigatorio(){
 
 
 }
-function teste(input){
+function defineSelectObrigatorio(input){//Precisa reformular
   
   if(input.tagName === "SELECT" && input.value==='nenhum'){
     console.log('é um select vazio')
@@ -114,7 +114,7 @@ function verificaDataInvalida (input){
 }
 
 
-function mostramensagemErro(input){
+function mostramensagemErro(input){//precisa melhorar
   if(!input.validity.valid){
     input.parentElement.classList.add('container-form--invalido')
   }
@@ -123,33 +123,42 @@ function mostramensagemErro(input){
   }
 }
 
-function cadastroFormulario(){
-}
+function cadastroFormulario(){}
 
-const formulario = document.querySelector('.cadastroLancamentos__formulario');
-const btnCadastrarForm = formulario.querySelector('.formualario__botao');
-const inputForm = formulario.querySelectorAll('[data-tipo]');
+
+// const formulario = document.querySelector('.cadastroLancamentos__formulario');
+const btnCadastrarForm = FORMULARIO.querySelector('.formualario__botao');
+const inputForm = FORMULARIO.querySelectorAll('[data-tipo]');
 const dados ={}
-
+const dadosOrdenados = {
+  nome: dados.nome,
+  descricao: dados.descricao,
+  tipo: dados.tipo,
+  quantidade: dados.quantidade,
+  data: dados.data
+};
 
 inputForm.forEach(input => {
   input.addEventListener('blur', function(event){
     const tiposDeInput = event.target.dataset.tipo
     const valorDoInput = event.target.value
-    dados[tiposDeInput] = valorDoInput;
+    dadosOrdenados[tiposDeInput] = valorDoInput;
     console.log(dados)
   })
 })
 
 btnCadastrarForm.addEventListener('click', function(event){
+  event.preventDefault();
+  console.log('clicou')
+  
   const tabela = document.querySelector('.UltimosCadastros-tabela');
   const novaLinha = tabela.insertRow(-1);
 
-  for (const [tipo, valor] of Object.entries(dados)) {
+  for (const [tiposDeInput, valorDoInput] of Object.entries(dadosOrdenados)) {
     const novaCelula = novaLinha.insertCell();
-    novaCelula.textContent = valor;
+    novaCelula.textContent = valorDoInput;
 
-    switch (tipo) {
+    switch (tiposDeInput) {
       case 'nome':
         novaLinha.appendChild(novaCelula);
         break;
