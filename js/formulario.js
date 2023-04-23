@@ -47,7 +47,7 @@ function validaCadastroLancamentoForm(input){
     }
 
     mostramensagemErro(input)
-    
+    cadastroFormularioNaTabela(input)
 }
 
 function alteraTypeInputQuantidade (){
@@ -68,7 +68,6 @@ function InputDropdownFormularioObrigatorio(){
   inputsDropdown.forEach(input => {
     if(input.value==="nenhum"){
       input.setCustomValidity('Selecione Uma Opção')
-      console.log(input.validity.valid);
 
     }
     else{
@@ -85,16 +84,10 @@ function InputDropdownFormularioObrigatorio(){
 function defineSelectObrigatorio(input){//Precisa reformular
   
   if(input.tagName === "SELECT" && input.value==='nenhum'){
-    console.log('é um select vazio')
-    console.log(input.value)
 
       input.setCustomValidity('Selecione Uma Opção')
     }
-    else{   
-       console.log(input.value)
-
-      console.log('nao é select')
-    }
+    
     
   }
   
@@ -123,59 +116,149 @@ function mostramensagemErro(input){//precisa melhorar
   }
 }
 
-function cadastroFormulario(){}
 
-
-// const formulario = document.querySelector('.cadastroLancamentos__formulario');
-const btnCadastrarForm = FORMULARIO.querySelector('.formualario__botao');
-const inputForm = FORMULARIO.querySelectorAll('[data-tipo]');
-const dados ={}
-const dadosOrdenados = {
-  nome: dados.nome,
-  descricao: dados.descricao,
-  tipo: dados.tipo,
-  quantidade: dados.quantidade,
-  data: dados.data
+const dadosFormulario = {
+  nome:"",
+  descricao:"",
+  tipo:"",
+  quantidade:"",
+  data:"",
 };
 
-inputForm.forEach(input => {
-  input.addEventListener('blur', function(event){
-    const tiposDeInput = event.target.dataset.tipo
-    const valorDoInput = event.target.value
-    dadosOrdenados[tiposDeInput] = valorDoInput;
-    console.log(dados)
-  })
-})
-
-btnCadastrarForm.addEventListener('click', function(event){
-  event.preventDefault();
-  console.log('clicou')
-  
+function cadastroFormularioNaTabela(input){
   const tabela = document.querySelector('.UltimosCadastros-tabela');
-  const novaLinha = tabela.insertRow(-1);
+  const btnCadastrarForm = FORMULARIO.querySelector('.formualario__botao');
+  
 
-  for (const [tiposDeInput, valorDoInput] of Object.entries(dadosOrdenados)) {
-    const novaCelula = novaLinha.insertCell();
-    novaCelula.textContent = valorDoInput;
+  
 
-    switch (tiposDeInput) {
-      case 'nome':
-        novaLinha.appendChild(novaCelula);
-        break;
-      case 'descricao':
-        novaLinha.appendChild(novaCelula);
-        break;
-      case 'tipo':
-        novaLinha.appendChild(novaCelula);
-        break;
-      case 'quantidade':
-        novaLinha.appendChild(novaCelula);
-        break;
-      case 'data':
-        novaLinha.appendChild(novaCelula);
-        break;
-      // adicione outras cases para cada tipo de dado que você tem
-    }
-  }
+  btnCadastrarForm.addEventListener('click', function(event){
+    event.preventDefault();
+    // Identifica o tipo de campo do input pelo atributo data-tipo
+    const tipoCampo = input.dataset.tipo;
 
-})
+   // Define o valor do input no campo correspondente da constante dadosFormulario
+   dadosFormulario[tipoCampo] = input.value;
+    
+
+    // Verifica se todos os campos foram preenchidos
+    if (Object.values(dadosFormulario).every(valor => valor !== '')) {
+      // Cria uma nova linha na tabela e adiciona as células com os valores do formulário
+      const novaLinha = tabela.insertRow(-1);
+      Object.values(dadosFormulario).forEach(valor => {
+        const celula = novaLinha.insertCell(-1);
+        celula.innerText = valor;
+      });
+
+      // Limpa o valor de todos os campos do formulário após cadastrar
+      Object.values(input.form.elements).forEach(campo => campo.value = '');
+    } 
+    // else {
+    //   alert('Por favor, preencha todos os campos do formulário.');
+    // }
+  });
+}
+
+
+
+// const dadosFormulario = {
+//   nome:"",
+//   descricao:"",
+//   tipo:"",
+//   quantidade:"",
+//   data:"",
+// }
+
+// function cadastroFormularioNaTabela(input){
+//   const tabela = document.querySelector('.UltimosCadastros-tabela');
+//   const btnCadastrarForm = FORMULARIO.querySelector('.formualario__botao');
+//   btnCadastrarForm.addEventListener('click', function(event){
+//     event.preventDefault();
+
+//     // Identifica o tipo de campo do input pelo atributo data-tipo
+//     const tipoCampo = input.dataset.tipo;
+
+//     // Define o valor do input no campo correspondente da constante dadosFormulario
+//     dadosFormulario[tipoCampo] = input.value;
+
+//     // Cria uma nova linha na tabela e adiciona as células com os valores do formulário
+//     const novaLinha = tabela.insertRow(-1);
+//     Object.values(dadosFormulario).forEach(valor => {
+//       const celula = novaLinha.insertCell(-1);
+//       celula.innerText = valor;
+//     });
+
+//     // Limpa o valor do campo do formulário após cadastrar
+//     input.value = '';
+
+//   })
+// }
+
+
+// const dados ={}
+// const dadosFormulario = {
+//   nome: dados.nome,
+//   descricao: dados.descricao,
+//   tipo: dados.tipo,
+//   quantidade: dados.quantidade,
+//   data: dados.data
+// }
+
+// function cadastroFormularioNaTabela(input){
+
+
+//     const btnCadastrarForm = FORMULARIO.querySelector('.formualario__botao');
+ 
+//     const tiposDeInput = input.dataset.tipo
+//     const valorDoInput = input.value
+//     dadosFormulario[tiposDeInput] = valorDoInput;
+//     console.log(dadosFormulario)
+
+//     btnCadastrarForm.addEventListener('click', function(event){
+//       event.preventDefault();
+//       console.log('clicou')
+      
+//       const tabela = document.querySelector('.UltimosCadastros-tabela');
+//       const novaLinha = tabela.insertRow(-1);
+
+//       for (const [tiposDeInput, valorDoInput] of Object.entries(dadosFormulario)) {
+//         const novaCelula = novaLinha.insertCell();
+//         novaCelula.textContent = valorDoInput;
+
+//         switch (tiposDeInput) {
+//           case 'nome':
+//             novaLinha.appendChild(novaCelula);
+//             break;
+//           case 'descricao':
+//             novaLinha.appendChild(novaCelula);
+//             break;
+//           case 'tipo':
+//             novaLinha.appendChild(novaCelula);
+//             break;
+//           case 'quantidade':
+//             novaLinha.appendChild(novaCelula);
+//             break;
+//           case 'data':
+//             novaLinha.appendChild(novaCelula);
+//             break;
+//         }
+//       }
+
+//     })
+//   }
+
+
+  // const formulario = document.querySelector('.cadastroLancamentos__formulario');
+
+   // const inputForm = FORMULARIO.querySelectorAll('[data-tipo]');
+  
+
+
+    // input.forEach(input => {
+    //   input.addEventListener('blur', function(event){
+    //     const tiposDeInput = event.target.dataset.tipo
+    //     const valorDoInput = event.target.value
+    //     dadosOrdenados[tiposDeInput] = valorDoInput;
+    //     console.log(dados)
+    //   })
+    // })
