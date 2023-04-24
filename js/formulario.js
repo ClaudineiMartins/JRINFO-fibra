@@ -45,16 +45,13 @@ function validaCadastroLancamentoForm(input){
   console.log(input.validity)
   console.log(input.value)
   
-  if(input.validity.valid){
-    input.parentElement.classList.remove('container-form--invalido')
-    input.parentElement.querySelector('.mensagem-erro').innerHTML = ''
-  }
-  else{
-    input.parentElement.classList.add('container-form--invalido')
-    input.parentElement.querySelector('.mensagem-erro').innerHTML = mostramensagemErro(input)
-  }
+  setTimeout(() => {
+    
+    validarPreechimentoInputs(input)
+  }, 100);
 
 
+ 
   
   InputDropdownFormularioObrigatorio()
   cadastroFormularioNaTabela(input)
