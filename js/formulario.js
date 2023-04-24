@@ -16,7 +16,6 @@ const toggleFormVisibility = () => {
 
 document.querySelector(".dashboard--boasVindas__adicionar").addEventListener("click", () => {
   toggleFormVisibility();
-  InputDropdownFormularioObrigatorio()
 
 });
 
@@ -28,26 +27,37 @@ document.querySelector(".fa-circle-xmark").addEventListener("click", () => {
 
 const inputTipo = document.querySelectorAll('[data-tipo]')
 inputTipo.forEach(input => {
-  input.addEventListener('blur', () => {
+  input.addEventListener('change', () => {
     validaCadastroLancamentoForm(input)
 
   })
 });
 
 function validaCadastroLancamentoForm(input){
-    alteraTypeInputQuantidade()
-    defineSelectObrigatorio(input)
+  const tipoDeInput = input.dataset.tipo
 
-    if(verificaDataInvalida(input)){
-      input.setCustomValidity('A data nao pode ser uma data futura')
-      
-    }
-    else{
-      input.setCustomValidity('')
-    }
+  if (validadores[tipoDeInput]) {
+    validadores[tipoDeInput](input)
+    console.log(verificaDataInvalida)
+  
 
-    mostramensagemErro(input)
-    cadastroFormularioNaTabela(input)
+  }
+  console.log(input.validity)
+  console.log(input.value)
+  
+  if(input.validity.valid){
+    input.parentElement.classList.remove('container-form--invalido')
+    input.parentElement.querySelector('.mensagem-erro').innerHTML = ''
+  }
+  else{
+    input.parentElement.classList.add('container-form--invalido')
+    input.parentElement.querySelector('.mensagem-erro').innerHTML = mostramensagemErro(input)
+  }
+
+
+  
+  InputDropdownFormularioObrigatorio()
+  cadastroFormularioNaTabela(input)
 }
 
 function alteraTypeInputQuantidade (){
@@ -66,54 +76,89 @@ function InputDropdownFormularioObrigatorio(){
   
   let inputsDropdown = FORMULARIO.querySelectorAll("select");
   inputsDropdown.forEach(input => {
-    if(input.value==="nenhum"){
-      input.setCustomValidity('Selecione Uma Opção')
-
+    if (input.value === 'nenhum') {
+      input.setCustomValidity('Selecione uma opção');
+    } else {
+      input.setCustomValidity('');
     }
-    else{
-      input.setCustomValidity('')
-
-
-    }
+    input.addEventListener('change', () => {
+      if (input.value === 'nenhum') {
+        input.setCustomValidity('Selecione uma opção');
+      } else {
+        input.setCustomValidity('');
+      }
+    });
     
   })
   
 
 
 }
-function defineSelectObrigatorio(input){//Precisa reformular
+window.onload = function() {
+  InputDropdownFormularioObrigatorio()
+};
+
   
-  if(input.tagName === "SELECT" && input.value==='nenhum'){
-
-      input.setCustomValidity('Selecione Uma Opção')
-    }
-    
-    
-  }
+const validadores = {
+  data:input => verificaDataInvalida(input),
+  tipo:input => alteraTypeInputQuantidade(),
   
-
-
-
-function verificaDataInvalida (input){
-  let dataHoje = new Date();
-  let dataRecebida = new Date(input.value)
-  if(dataRecebida=='Invalid Date'){
-    return
-  }
-  let datavalida = dataRecebida>=dataHoje
- 
-  return datavalida;
-
 }
 
 
+
+const tiposDeErro = [
+  'customError',
+  'valueMissing',
+  'typeMismatch',
+  'patternMismatch',
+]
+const mensagensDeErro = {
+  nome: {
+      valueMissing: 'O campo de nome não pode estar vazio.',
+      customError: 'Selecione um funcionario da lista'
+  },
+  descricao: {
+      valueMissing: 'O campo de descrição não pode estar vazio.'
+  },
+  tipo: {
+      valueMissing: 'O campo de tipo não pode estar vazio.',
+      customError: 'Selecione uma opção da lista'
+  },
+  quantidade: {
+      valueMissing: 'O campo de quantidade não pode estar vazio.'
+  },
+  data: {
+      valueMissing: 'O campo de data não pode estar vazio.',
+      customError: 'Não é possivel selecionar uma data maior que a data de hoje!'
+  }
+
+}
+
 function mostramensagemErro(input){//precisa melhorar
-  if(!input.validity.valid){
-    input.parentElement.classList.add('container-form--invalido')
+  const tipoDeInput = input.dataset.tipo;
+  let mensagem = ''
+  tiposDeErro.forEach(erro =>{
+    if(input.validity[erro]){
+      mensagem = mensagensDeErro[tipoDeInput][erro]
+    }
+  })
+
+  return mensagem
+ 
+}
+function verificaDataInvalida(input){
+  let mensagem = ''
+  
+  let dataHoje = new Date();
+  let dataRecebida = new Date(input.value)
+
+  if(dataRecebida>dataHoje){
+    mensagem = 'nao é possivel selecionar uma data maior que a data de hoje'
   }
-  else{
-    input.parentElement.classList.remove('container-form--invalido')
-  }
+  
+  input.setCustomValidity(mensagem)
+
 }
 
 
@@ -123,7 +168,8 @@ const dadosFormulario = {
   tipo:"",
   quantidade:"",
   data:"",
-};
+}
+
 
 function cadastroFormularioNaTabela(input){
   const tabela = document.querySelector('.UltimosCadastros-tabela');
@@ -134,6 +180,7 @@ function cadastroFormularioNaTabela(input){
 
   btnCadastrarForm.addEventListener('click', function(event){
     event.preventDefault();
+
     // Identifica o tipo de campo do input pelo atributo data-tipo
     const tipoCampo = input.dataset.tipo;
 
@@ -153,112 +200,30 @@ function cadastroFormularioNaTabela(input){
       // Limpa o valor de todos os campos do formulário após cadastrar
       Object.values(input.form.elements).forEach(campo => campo.value = '');
     } 
-    // else {
-    //   alert('Por favor, preencha todos os campos do formulário.');
-    // }
+    else {
+      mostramensagemErro(input);
+    }
   });
 }
+const botaoCadastro = FORMULARIO.querySelector('.formualario__botao');
+botaoCadastro.addEventListener('click', function(event){
+  const inputTipo = document.querySelectorAll('[data-tipo]')
+  //inputTipo = todos os inputs com data-tipo=tipo
+  inputTipo.forEach(input =>{
+  validarPreechimentoInputs(input)
 
+  })
+})
 
+function validarPreechimentoInputs(input){
+  if(input.validity.valid){
+    input.parentElement.classList.remove('container-form--invalido')
+    input.parentElement.querySelector('.mensagem-erro').innerHTML = ''
+  }
+  else{
+    input.parentElement.classList.add('container-form--invalido')
+    input.parentElement.querySelector('.mensagem-erro').innerHTML = mostramensagemErro(input)
+  }
 
-// const dadosFormulario = {
-//   nome:"",
-//   descricao:"",
-//   tipo:"",
-//   quantidade:"",
-//   data:"",
-// }
+}
 
-// function cadastroFormularioNaTabela(input){
-//   const tabela = document.querySelector('.UltimosCadastros-tabela');
-//   const btnCadastrarForm = FORMULARIO.querySelector('.formualario__botao');
-//   btnCadastrarForm.addEventListener('click', function(event){
-//     event.preventDefault();
-
-//     // Identifica o tipo de campo do input pelo atributo data-tipo
-//     const tipoCampo = input.dataset.tipo;
-
-//     // Define o valor do input no campo correspondente da constante dadosFormulario
-//     dadosFormulario[tipoCampo] = input.value;
-
-//     // Cria uma nova linha na tabela e adiciona as células com os valores do formulário
-//     const novaLinha = tabela.insertRow(-1);
-//     Object.values(dadosFormulario).forEach(valor => {
-//       const celula = novaLinha.insertCell(-1);
-//       celula.innerText = valor;
-//     });
-
-//     // Limpa o valor do campo do formulário após cadastrar
-//     input.value = '';
-
-//   })
-// }
-
-
-// const dados ={}
-// const dadosFormulario = {
-//   nome: dados.nome,
-//   descricao: dados.descricao,
-//   tipo: dados.tipo,
-//   quantidade: dados.quantidade,
-//   data: dados.data
-// }
-
-// function cadastroFormularioNaTabela(input){
-
-
-//     const btnCadastrarForm = FORMULARIO.querySelector('.formualario__botao');
- 
-//     const tiposDeInput = input.dataset.tipo
-//     const valorDoInput = input.value
-//     dadosFormulario[tiposDeInput] = valorDoInput;
-//     console.log(dadosFormulario)
-
-//     btnCadastrarForm.addEventListener('click', function(event){
-//       event.preventDefault();
-//       console.log('clicou')
-      
-//       const tabela = document.querySelector('.UltimosCadastros-tabela');
-//       const novaLinha = tabela.insertRow(-1);
-
-//       for (const [tiposDeInput, valorDoInput] of Object.entries(dadosFormulario)) {
-//         const novaCelula = novaLinha.insertCell();
-//         novaCelula.textContent = valorDoInput;
-
-//         switch (tiposDeInput) {
-//           case 'nome':
-//             novaLinha.appendChild(novaCelula);
-//             break;
-//           case 'descricao':
-//             novaLinha.appendChild(novaCelula);
-//             break;
-//           case 'tipo':
-//             novaLinha.appendChild(novaCelula);
-//             break;
-//           case 'quantidade':
-//             novaLinha.appendChild(novaCelula);
-//             break;
-//           case 'data':
-//             novaLinha.appendChild(novaCelula);
-//             break;
-//         }
-//       }
-
-//     })
-//   }
-
-
-  // const formulario = document.querySelector('.cadastroLancamentos__formulario');
-
-   // const inputForm = FORMULARIO.querySelectorAll('[data-tipo]');
-  
-
-
-    // input.forEach(input => {
-    //   input.addEventListener('blur', function(event){
-    //     const tiposDeInput = event.target.dataset.tipo
-    //     const valorDoInput = event.target.value
-    //     dadosOrdenados[tiposDeInput] = valorDoInput;
-    //     console.log(dados)
-    //   })
-    // })
