@@ -12,6 +12,7 @@ function toggleFormularioFuncionario (){
     
 
 }
+//para cada input passa o input clicado atravez do evento blur para futura verificação
 const inputsFormularioFuncionarios = document.querySelectorAll('[data-tipo]')
 inputsFormularioFuncionarios.forEach(input => {
     const tipoDeInput = input.dataset.tipo;
@@ -20,6 +21,22 @@ inputsFormularioFuncionarios.forEach(input => {
 
     })
 })
+//verifica o input recebido do evento blur e adiciona ou remove a classe que estiliza o erro.
+
+function verificaInputValido(input){
+    if(input.validity.valid){
+        input.parentElement.classList.remove('container-form--invalido')
+        input.parentElement.querySelector('.mensagem-erro').innerHTML=""
+    }
+    else{
+        input.parentElement.classList.add('container-form--invalido')
+        input.parentElement.querySelector('.mensagem-erro').innerHTML=mostraMensagemErro(input)
+
+    }
+
+}
+
+//tipos de erros que um input pode receber do validity
 const tiposDeErro = [
     'badInput',
     'customError',
@@ -32,30 +49,35 @@ const tiposDeErro = [
     'valueMissing',
     'tooLong',
 ]
+//mensagens de erros personalizadas para cada input dependendo do erro;
 const mensagensDeErro = {
+
     nome: {
         valueMissing:'O campo de nome Não pode estar vazio.',
         tooShort: 'ta curto bro'
     },
     cargo: {
-        valueMissing:'O campo de nome Não pode estar vazio.',
+        valueMissing:'O campo de cargo Não pode estar vazio.',
         tooShort: 'ta curto bro'
     },
     admissao: {
-        valueMissing:'O campo de nome Não pode estar vazio.',
+        valueMissing:'O campo de admissao Não pode estar vazio.',
         tooShort: 'ta curto bro'
     },
-    nome: {
-        valueMissing:'O campo de nome Não pode estar vazio.',
+    salario: {
+        valueMissing:'O campo de salario Não pode estar vazio.',
         tooShort: 'ta curto bro'
     }
     
 
 }
+//mostra a mensagem de erro dependendo do erro recebido para cada input
+
+//recebe um input => verifica o tipo de input=>inicia uma mensagem vazia => se tiver algum dos erros no input
+//=>muda a mensagem para o valor da mensagem na costante 'mensagensDeErro'=> retorna essa mensagem de erro;
 function mostraMensagemErro(input){
     let tipoDeInput = input.dataset.tipo;
     let mensagem = ""
-    console.log(tipoDeInput)
     tiposDeErro.forEach(erro =>{
         if(input.validity[erro]){
         mensagem = mensagensDeErro[tipoDeInput][erro]
@@ -72,33 +94,12 @@ function mostraMensagemErro(input){
 }
 
 
-function verificaInputValido(input){
-    if(input.validity.valid){
-        input.parentElement.classList.remove('container-form--invalido')
-        input.parentElement.querySelector('.mensagem-erro').innerHTML=""
-    }
-    else{
-        input.parentElement.classList.add('container-form--invalido')
-        input.parentElement.querySelector('.mensagem-erro').innerHTML=mostraMensagemErro(input)
 
-    }
 
-  
-   
+const botaoCadastrarFuncionario = document.querySelector('.formualario__botao');
+botaoAdicionarFuncionario.addEventListener('click', cadastraFormularioNaTabela)
 
-    tiposDeErro.forEach(erro=>{
-        if(input.validity[erro]){
-            console.log(input.validity[erro])
-            mostraMensagemErro(input,erro)
-            
-            console.log('ta erro')
-            // console.log(input.validity[erro])
-        }
-        
-        
-    })
+function cadastraFormularioNaTabela(){
+    console.log("teste")
 }
-
-
-function cadastraFormularioNaTabela(){}
 
