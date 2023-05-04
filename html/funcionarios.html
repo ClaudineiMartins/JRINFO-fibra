@@ -62,14 +62,29 @@
             <h1 class="cadastroFuncionario__titulo">Cadastrar Funcionario</h1>
             <i class="fa-solid fa-circle-xmark fa-lg" ></i>
             <form class="cadastroFuncionario__formulario">
-                <label class="formulario__descricao" for="nome">Nome </label>
-                <input required type="text" id="nome" placeholder="Ex: Lucas Martins" class="formulario__input-grande">
-                <label class="formulario__descricao" for="cargo">Cargo</label>
-                <input required type="text" id="cargo" placeholder="Ex:Supervisor em Instalaçoes" class="formulario__input-grande">
-                <label class="formulario__descricao" for="cargo">Admissao</label>
-                <input required type="date" id="Admissao" placeholder="Ex: 22/10/2019" class="formulario__input-pequeno">
-                <label class="formulario__descricao" for="salario">salario</label>
-                <input required type="text" id="salario" placeholder="Ex: 2189,90" class="formulario__input-pequeno">
+                <div class="container-form"> 
+                    <label class="formulario__descricao" for="nome">Nome </label>
+                    <input minlength="3" required data-tipo="nome" type="text" id="nome" placeholder="Ex: Lucas Martins" class="formulario__input-grande">
+                    <span class="mensagem-erro">Verifique este campo</span>
+                 </div>
+                 <div class="container-form"> 
+                     <label class="formulario__descricao" for="cargo">Cargo</label>
+                     <input required data-tipo="cargo" type="text" id="cargo" placeholder="Ex:Supervisor em Instalaçoes" class="formulario__input-grande">
+                     <span class="mensagem-erro">Verifique este campo</span>
+
+                 </div>
+                 <div class="container-form"> 
+                     <label class="formulario__descricao" for="cargo">Admissao</label>
+                     <input required data-tipo="admissao" type="date" id="Admissao" placeholder="Ex: 22/10/2019" class="formulario__input-pequeno">
+                     <span class="mensagem-erro">Verifique este campo</span>
+
+                 </div>
+                 <div class="container-form"> 
+                     
+                     <label class="formulario__descricao" for="salario">salario</label>
+                     <input required data-tipo="salario" type="text" id="salario" placeholder="Ex: 2189,90" class="formulario__input-pequeno">
+                     <span class="mensagem-erro">Verifique este campo</span>
+                 </div>
                 <button type="submit" value="Cadastrar" class="formualario__botao">Cadastrar</button>
             </form>
             
