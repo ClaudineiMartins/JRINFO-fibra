@@ -97,9 +97,14 @@ function mostraMensagemErro(input){
 
 
 const botaoCadastrarFuncionario = document.querySelector('.formualario__botao');
-botaoAdicionarFuncionario.addEventListener('click', cadastraFormularioNaTabela)
+botaoCadastrarFuncionario.addEventListener('click', cadastraFormularioNaTabela)
 
 function cadastraFormularioNaTabela(){
-    console.log("teste")
+    inputsFormularioFuncionarios.forEach(input =>{
+        if(!input.validity.valid){
+            console.log(input.validity.valid)
+            verificaInputValido(input)
+        }
+    })
 }
 
