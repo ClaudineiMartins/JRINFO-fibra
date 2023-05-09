@@ -99,12 +99,49 @@ function mostraMensagemErro(input){
 const botaoCadastrarFuncionario = document.querySelector('.formualario__botao');
 botaoCadastrarFuncionario.addEventListener('click', cadastraFormularioNaTabela)
 
-function cadastraFormularioNaTabela(){
+function cadastraFormularioNaTabela(event){
+    event.preventDefault()
+    
     inputsFormularioFuncionarios.forEach(input =>{
         if(!input.validity.valid){
             console.log(input.validity.valid)
             verificaInputValido(input)
         }
+        else{
+            cadastrarDadosNaTabela(input)
+        }
+    
     })
+}
+
+const dadosFormularioFuncionario = {
+    nome: '',
+    cargo: '',
+    admissao: '',
+    salario: '',
+
+}
+
+function cadastrarDadosNaTabela(input){
+
+    const tabela = document.querySelector('.colaboradores-tabela');
+    const tipoDeInput = input.dataset.tipo
+
+    dadosFormularioFuncionario[tipoDeInput] = input.value;
+
+    if(Object.values(dadosFormularioFuncionario).every(valor => valor !== '')){
+        const novaLinha = tabela.insertRow(-1);
+        Object.values(dadosFormularioFuncionario).forEach(valor => {
+            const celula = novaLinha.insertCell(-1)
+            celula.innerText = valor;
+        });
+        Object.keys(dadosFormularioFuncionario).forEach(dado => dadosFormularioFuncionario[dado] = '');
+        Object.values(input.form.elements).forEach(input => input.value = '');
+    }
+
+    
+
+
+
 }
 
