@@ -144,4 +144,21 @@ function cadastrarDadosNaTabela(input){
 
 
 }
+fetch('http://localhost:3000/funcionarios')
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.log(error));
+
+
+// const requestOptions = {
+//     method: 'POST',
+//     headers: { 'Content-Type': 'application/json' },
+//     body: JSON.stringify(dadosFormularioFuncionario)
+//   };
+  
+//   fetch('http://localhost:3000/funcionarios', requestOptions)
+//     .then(response => response.json())
+//     .then(data => console.log(data))
+//     .catch(error => console.log(error));
+  
 
