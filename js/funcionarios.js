@@ -122,43 +122,73 @@ const dadosFormularioFuncionario = {
 
 }
 
+
+function exibeTabela(dadosFuncionario) {
+    const tabela = document.querySelector('.colaboradores-tabela');
+  
+    const novaLinha = tabela.insertRow(-1);
+    Object.keys(dadosFuncionario).forEach(propriedade => {
+      const celula = novaLinha.insertCell(-1);
+      celula.innerText = dadosFuncionario[propriedade];
+    });
+  
+    Object.values(dadosFormularioFuncionario).forEach((valor, index) => {
+      Object.keys(dadosFormularioFuncionario)[index].value = '';
+    });
+
+  }
+  
+
+
+
+
 function cadastrarDadosNaTabela(input){
 
-    const tabela = document.querySelector('.colaboradores-tabela');
+    // const tabela = document.querySelector('.colaboradores-tabela');
     const tipoDeInput = input.dataset.tipo
 
     dadosFormularioFuncionario[tipoDeInput] = input.value;
 
     if(Object.values(dadosFormularioFuncionario).every(valor => valor !== '')){
-        const novaLinha = tabela.insertRow(-1);
-        Object.values(dadosFormularioFuncionario).forEach(valor => {
-            const celula = novaLinha.insertCell(-1)
-            celula.innerText = valor;
-        });
+        // const novaLinha = tabela.insertRow(-1);
+        // Object.values(dadosFormularioFuncionario).forEach(valor => {
+        //     const celula = novaLinha.insertCell(-1)
+        //     celula.innerText = valor;
+        // });
+        fetch('http://localhost:3000/funcionarios', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dadosFormularioFuncionario)
+          })
+            .then(response => response.json())
+            .then(data => {
+              console.log('Funcionário cadastrado com sucesso:', data);
+              buscarDadosTabela();
+            })
+            .catch(error => console.error('Erro ao cadastrar funcionário:', error));
+
         Object.keys(dadosFormularioFuncionario).forEach(dado => dadosFormularioFuncionario[dado] = '');
         Object.values(input.form.elements).forEach(input => input.value = '');
-    }
 
-    
+        ImprimeDadosNaTabela()
+    }
+}
+function ImprimeDadosNaTabela(){
+//buscar dados no json
+    fetch('http://localhost:3000/funcionarios')
+    .then(response => response.json())
+    .then(data => {
+    data.forEach(dadosFuncionario => {
+        exibeTabela(dadosFuncionario);
+    });
+    })
+    .catch(error => console.log(error));
 
 
 
 }
-fetch('http://localhost:3000/funcionarios')
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.log(error));
+ImprimeDadosNaTabela()
 
-
-// const requestOptions = {
-//     method: 'POST',
-//     headers: { 'Content-Type': 'application/json' },
-//     body: JSON.stringify(dadosFormularioFuncionario)
-//   };
-  
-//   fetch('http://localhost:3000/funcionarios', requestOptions)
-//     .then(response => response.json())
-//     .then(data => console.log(data))
-//     .catch(error => console.log(error));
-  
 
