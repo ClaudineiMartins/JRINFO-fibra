@@ -92,10 +92,6 @@ function mostraMensagemErro(input){
     
 
 }
-
-
-
-
 const botaoCadastrarFuncionario = document.querySelector('.formualario__botao');
 botaoCadastrarFuncionario.addEventListener('click', cadastraFormularioNaTabela)
 
@@ -113,6 +109,24 @@ function cadastraFormularioNaTabela(event){
     
     })
 }
+buscaDadosNoJson();
+
+function cadastrarDadosNaTabela(input){
+    const tipoDeInput = input.dataset.tipo
+    dadosFormularioFuncionario[tipoDeInput] = input.value;
+
+    if(Object.values(dadosFormularioFuncionario).every(valor => valor !== '')){
+        cadastraDadosNoJSON()
+        
+
+        Object.keys(dadosFormularioFuncionario).forEach(dado => dadosFormularioFuncionario[dado] = '');
+        Object.values(input.form.elements).forEach(input => input.value = '');
+
+        
+        
+    }
+    
+}
 
 const dadosFormularioFuncionario = {
     nome: '',
@@ -121,8 +135,48 @@ const dadosFormularioFuncionario = {
     salario: '',
 
 }
+function cadastraDadosNoJSON(){
+    fetch('http://localhost:3000/funcionarios', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(dadosFormularioFuncionario)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Funcionário cadastrado com sucesso:', data);
+        buscaDadosNoJson()
+    })
+    .catch(error => console.error('Erro ao cadastrar funcionário:', error));
+
+    
+}
 
 
+
+function buscaDadosNoJson(){
+    const tabela = document.querySelector('.colaboradores-tabela');
+
+  // Remove todas as linhas de dados existentes na tabela
+  const linhasDados = tabela.querySelectorAll('tr:not(:first-child)');
+  linhasDados.forEach(linha => linha.remove());
+
+  
+
+//buscar dados no json
+    fetch('http://localhost:3000/funcionarios')
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(dadosFuncionario => {
+        exibeTabela(dadosFuncionario);
+        });
+    })
+    .catch(error => console.log(error));
+
+
+
+
+
+}
 function exibeTabela(dadosFuncionario) {
     const tabela = document.querySelector('.colaboradores-tabela');
   
@@ -136,59 +190,10 @@ function exibeTabela(dadosFuncionario) {
       Object.keys(dadosFormularioFuncionario)[index].value = '';
     });
 
-  }
-  
-
-
-
-
-function cadastrarDadosNaTabela(input){
-
-    // const tabela = document.querySelector('.colaboradores-tabela');
-    const tipoDeInput = input.dataset.tipo
-
-    dadosFormularioFuncionario[tipoDeInput] = input.value;
-
-    if(Object.values(dadosFormularioFuncionario).every(valor => valor !== '')){
-        // const novaLinha = tabela.insertRow(-1);
-        // Object.values(dadosFormularioFuncionario).forEach(valor => {
-        //     const celula = novaLinha.insertCell(-1)
-        //     celula.innerText = valor;
-        // });
-        fetch('http://localhost:3000/funcionarios', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(dadosFormularioFuncionario)
-          })
-            .then(response => response.json())
-            .then(data => {
-              console.log('Funcionário cadastrado com sucesso:', data);
-              buscarDadosTabela();
-            })
-            .catch(error => console.error('Erro ao cadastrar funcionário:', error));
-
-        Object.keys(dadosFormularioFuncionario).forEach(dado => dadosFormularioFuncionario[dado] = '');
-        Object.values(input.form.elements).forEach(input => input.value = '');
-
-        ImprimeDadosNaTabela()
-    }
-}
-function ImprimeDadosNaTabela(){
-//buscar dados no json
-    fetch('http://localhost:3000/funcionarios')
-    .then(response => response.json())
-    .then(data => {
-    data.forEach(dadosFuncionario => {
-        exibeTabela(dadosFuncionario);
-    });
-    })
-    .catch(error => console.log(error));
-
 
 
 }
-ImprimeDadosNaTabela()
+
+ 
 
 
