@@ -1,27 +1,49 @@
-const FORMULARIO = document.querySelector(".cadastroLancamentos__formulario");
+const DASH_botaoAdicionar = document.querySelector('.dashboard--boasVindas__adicionar')
+const DASH_formularioAdicionar = document.querySelector('.cadastroLancamentos')
+const botaoFecharFormulario = document.querySelector('.fa-circle-xmark')
+const fundoFormulario = document.querySelector('.backdropFilter-invivel_JS')
+
+DASH_botaoAdicionar.addEventListener('click', toggleFormularioFuncionario)
+botaoFecharFormulario.addEventListener('click', toggleFormularioFuncionario )
+fundoFormulario.addEventListener('click', toggleFormularioFuncionario)
+function toggleFormularioFuncionario (){
+    DASH_formularioAdicionar.classList.toggle('ocultaCadastro_JS')
+    fundoFormulario.classList.toggle('backdropFilter-invivel_JS')
+    
+
+}
 
 
-const FORM_SECTION_SELECTOR = ".cadastroLancamentos";
-const FORM_HIDDEN_CLASS = "ocultaCadastro_JS";
-const BACKDROP_SECTION_SELECTOR = ".backdropFilter-aprente";
-const BACKDROP_HIDDEN_CLASS = "backdropFilter-invivel_JS";
 
-const toggleFormVisibility = () => {
-  const formSection = document.querySelector(FORM_SECTION_SELECTOR);
-  const backdropSection = document.querySelector(BACKDROP_SECTION_SELECTOR);
 
-  formSection.classList.toggle(FORM_HIDDEN_CLASS);
-  backdropSection.classList.toggle(BACKDROP_HIDDEN_CLASS);
-};
 
-document.querySelector(".dashboard--boasVindas__adicionar").addEventListener("click", () => {
-  toggleFormVisibility();
 
-});
 
-document.querySelector(".fa-circle-xmark").addEventListener("click", () => {
-  toggleFormVisibility();
-});
+
+// const FORMULARIO = document.querySelector(".cadastroLancamentos__formulario");
+
+
+// const FORM_SECTION_SELECTOR = ".cadastroLancamentos";
+// const FORM_HIDDEN_CLASS = "ocultaCadastro_JS";
+// const BACKDROP_SECTION_SELECTOR = ".backdropFilter-aprente";
+// const BACKDROP_HIDDEN_CLASS = "backdropFilter-invivel_JS";
+
+// const toggleFormVisibility = () => {
+//   const formSection = document.querySelector(FORM_SECTION_SELECTOR);
+//   const backdropSection = document.querySelector(BACKDROP_SECTION_SELECTOR);
+
+//   formSection.classList.toggle(FORM_HIDDEN_CLASS);
+//   backdropSection.classList.toggle(BACKDROP_HIDDEN_CLASS);
+// };
+
+// document.querySelector(".dashboard--boasVindas__adicionar").addEventListener("click", () => {
+//   toggleFormVisibility();
+
+// });
+
+// document.querySelector(".fa-circle-xmark").addEventListener("click", () => {
+//   toggleFormVisibility();
+// });
 
 
 
