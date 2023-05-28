@@ -7,6 +7,8 @@
     <title>JRINFO fibra</title>
     <link rel="stylesheet" href="assets/reset.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="assets/imgs/icon_LOGO.png" type="image/x-icon">
+    <script src="js/dashboard.js" defer></script>
     <script src="js/formulario.js" defer></script>
 </head>
 <body>
@@ -28,7 +30,7 @@
             <div class="filter__container filter__container--invisivel">
                 <div class="filter__container--opcao">
                     <span class="filter__container--opcao__titulo" >Funcionario:</span>
-                    <select class="filter__container--opcao__dropdown">
+                    <select name="dropdownFuncionarios" class="filter__container--opcao__dropdown" data-tipo="dashboard_nome">
                         <option value="todos">Todos</option>
                     </select>
                     
@@ -43,8 +45,10 @@
 
                 <div class="filter__container--opcao">
                     <span class="filter__container--opcao__titulo" >Tipo:</span>
-                    <select class="filter__container--opcao__dropdown">
+                    <select class="filter__container--opcao__dropdown" data-tipo="dashboard_tipo">
                         <option value="todos">Todos</option>
+                        <option value="Hora Extra">Hora Extra</option>
+                        <option value="ServicoExtra">Serviço Extra</option>
                     </select>
                     
                 </div>
@@ -119,7 +123,6 @@
                 <label class="formulario__descricao" for="nome">Nome </label>
                 <select data-tipo="nome" required id="nome" class="formulario__input-grande input-Form">
                     <option value="nenhum">Selecione
-                    <option value="teste">Teste
         
                 </select>
                 <span class="mensagem-erro">Verifique esse campo</span>
