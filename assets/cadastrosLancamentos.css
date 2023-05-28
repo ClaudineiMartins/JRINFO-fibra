@@ -21,10 +21,11 @@
 .cadastroLancamentos{
     
     padding: 1em;
-    position: fixed;
+    position: absolute;
     background: var(--corDasSessoes);
     border-radius: 12px;
     width: 940px;
+    height: fit-content;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
