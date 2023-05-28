@@ -9,45 +9,10 @@ fundoFormulario.addEventListener('click', toggleFormularioFuncionario)
 function toggleFormularioFuncionario (){
     DASH_formularioAdicionar.classList.toggle('ocultaCadastro_JS')
     fundoFormulario.classList.toggle('backdropFilter-invivel_JS')
-    
-
 }
 
-
-
-
-
-
-
-
-// const FORMULARIO = document.querySelector(".cadastroLancamentos__formulario");
-
-
-// const FORM_SECTION_SELECTOR = ".cadastroLancamentos";
-// const FORM_HIDDEN_CLASS = "ocultaCadastro_JS";
-// const BACKDROP_SECTION_SELECTOR = ".backdropFilter-aprente";
-// const BACKDROP_HIDDEN_CLASS = "backdropFilter-invivel_JS";
-
-// const toggleFormVisibility = () => {
-//   const formSection = document.querySelector(FORM_SECTION_SELECTOR);
-//   const backdropSection = document.querySelector(BACKDROP_SECTION_SELECTOR);
-
-//   formSection.classList.toggle(FORM_HIDDEN_CLASS);
-//   backdropSection.classList.toggle(BACKDROP_HIDDEN_CLASS);
-// };
-
-// document.querySelector(".dashboard--boasVindas__adicionar").addEventListener("click", () => {
-//   toggleFormVisibility();
-
-// });
-
-// document.querySelector(".fa-circle-xmark").addEventListener("click", () => {
-//   toggleFormVisibility();
-// });
-
-
-
-const inputTipo = document.querySelectorAll('[data-tipo]')
+const formularioCadastro = document.querySelector('.cadastroLancamentos__formulario')
+const inputTipo = formularioCadastro.querySelectorAll('[data-tipo]')
 inputTipo.forEach(input => {
   input.addEventListener('change', () => {
     validaCadastroLancamentoForm(input)
@@ -60,12 +25,11 @@ function validaCadastroLancamentoForm(input){
 
   if (validadores[tipoDeInput]) {
     validadores[tipoDeInput](input)
-    console.log(verificaDataInvalida)
+    
   
 
   }
-  console.log(input.validity)
-  console.log(input.value)
+  
   
   setTimeout(() => {
     
@@ -80,20 +44,22 @@ function validaCadastroLancamentoForm(input){
 }
 
 function alteraTypeInputQuantidade (){
+
   let inputTipo = document.querySelector('[data-tipo="tipo"]');
   let inputQuantidade = document.querySelector('[data-tipo="quantidade"]');
   inputQuantidade.type ="text"
+  console.log('text')
     
   if(inputTipo.value==='Hora Extra'){
+    console.log('hora extra')
     inputQuantidade.type="time"
   }
   
- 
 }
 
 function InputDropdownFormularioObrigatorio(){
   
-  let inputsDropdown = FORMULARIO.querySelectorAll("select");
+  let inputsDropdown = DASH_formularioAdicionar.querySelectorAll("select");
   inputsDropdown.forEach(input => {
     if (input.value === 'nenhum') {
       input.setCustomValidity('Selecione uma opção');
@@ -192,7 +158,7 @@ const dadosFormulario = {
 
 function cadastroFormularioNaTabela(input){
   const tabela = document.querySelector('.UltimosCadastros-tabela');
-  const btnCadastrarForm = FORMULARIO.querySelector('.formualario__botao');
+  const btnCadastrarForm = DASH_formularioAdicionar.querySelector('.formualario__botao');
   
 
   
@@ -224,7 +190,7 @@ function cadastroFormularioNaTabela(input){
     }
   });
 }
-const botaoCadastro = FORMULARIO.querySelector('.formualario__botao');
+const botaoCadastro = DASH_formularioAdicionar.querySelector('.formualario__botao');
 botaoCadastro.addEventListener('click', function(event){
   const inputTipo = document.querySelectorAll('[data-tipo]')
   //inputTipo = todos os inputs com data-tipo=tipo
@@ -237,7 +203,7 @@ botaoCadastro.addEventListener('click', function(event){
 function validarPreechimentoInputs(input){
   if(input.validity.valid){
     input.parentElement.classList.remove('container-form--invalido')
-    input.parentElement.querySelector('.mensagem-erro').innerHTML = ''
+    // input.parentElement.querySelector('.mensagem-erro').innerHTML = mostramensagemErro(input)
   }
   else{
     input.parentElement.classList.add('container-form--invalido')
@@ -245,4 +211,47 @@ function validarPreechimentoInputs(input){
   }
 
 }
+//cadastra valores ao dropdown 'nome' no formulario de cadastro.
+const dropdownCadastroNome = [];
 
+let selectCadastroNome = document.querySelector('[data-tipo="nome"]');
+
+fetch('http://localhost:3000/funcionarios')
+    .then(response => response.json())
+    .then(data => {
+        let selecNome = data.map(dados => dados.nome);
+        dropdownCadastroNome.push(...selecNome);
+        criarOptions(selectCadastroNome);
+    });
+
+function criarOptions(select) {
+    dropdownCadastroNome.forEach(funcionario => {
+        let novaOption = document.createElement('option');
+        novaOption.text = funcionario;
+        novaOption.value = funcionario;
+        select.appendChild(novaOption);
+    });
+}
+
+
+//-----------------------------------------------------
+// const dropdownFuncionarios = [];
+
+// let selectFuncionario = document.querySelector('[name="dropdownFuncionarios"]');
+
+// fetch('http://localhost:3000/funcionarios')
+//     .then(response => response.json())
+//     .then(data => {
+//         let funcionarios = data.map(dadosFuncionario => dadosFuncionario.nome);
+//         dropdownFuncionarios.push(...funcionarios);
+//         criarOption(selectFuncionario);
+//     });
+
+// function criarOption(select) {
+//     dropdownFuncionarios.forEach(funcionario => {
+//         let novaOption = document.createElement('option');
+//         novaOption.text = funcionario;
+//         novaOption.value = funcionario;
+//         select.appendChild(novaOption);
+//     });
+// }
