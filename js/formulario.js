@@ -211,7 +211,7 @@ function validarPreechimentoInputs(input){
   }
 
 }
-//cadastra valores ao dropdown 'nome' no formulario de cadastro.
+//cadastra valores ao dropdown 'nome' no formulario de cadastro.----------------
 const dropdownCadastroNome = [];
 
 let selectCadastroNome = document.querySelector('[data-tipo="nome"]');
@@ -232,26 +232,15 @@ function criarOptions(select) {
         select.appendChild(novaOption);
     });
 }
+//-----------------------------------------------------------------
+
+fetch('http://localhost:3001/BancoHoras')
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(dado => {
+        console.log(dado);
+        });
+    })
+    .catch(error => console.log(error));
 
 
-//-----------------------------------------------------
-// const dropdownFuncionarios = [];
-
-// let selectFuncionario = document.querySelector('[name="dropdownFuncionarios"]');
-
-// fetch('http://localhost:3000/funcionarios')
-//     .then(response => response.json())
-//     .then(data => {
-//         let funcionarios = data.map(dadosFuncionario => dadosFuncionario.nome);
-//         dropdownFuncionarios.push(...funcionarios);
-//         criarOption(selectFuncionario);
-//     });
-
-// function criarOption(select) {
-//     dropdownFuncionarios.forEach(funcionario => {
-//         let novaOption = document.createElement('option');
-//         novaOption.text = funcionario;
-//         novaOption.value = funcionario;
-//         select.appendChild(novaOption);
-//     });
-// }
