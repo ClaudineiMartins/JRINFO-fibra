@@ -100,7 +100,6 @@ function cadastraFormularioNaTabela(event){
     
     inputsFormularioFuncionarios.forEach(input =>{
         if(!input.validity.valid){
-            console.log(input.validity.valid)
             verificaInputValido(input)
         }
         else{
@@ -151,8 +150,6 @@ function cadastraDadosNoJSON(){
     
 }
 
-
-
 function buscaDadosNoJson(){
     const tabela = document.querySelector('.colaboradores-tabela');
 
@@ -167,6 +164,7 @@ function buscaDadosNoJson(){
     .then(response => response.json())
     .then(data => {
         data.forEach(dadosFuncionario => {
+            console.log(dadosFuncionario)
         exibeTabela(dadosFuncionario);
         });
     })
