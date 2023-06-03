@@ -1,3 +1,4 @@
+//------------------------------------------------------------------------------
 const DASH_botaoAdicionar = document.querySelector('.dashboard--boasVindas__adicionar')
 const DASH_formularioAdicionar = document.querySelector('.cadastroLancamentos')
 const botaoFecharFormulario = document.querySelector('.fa-circle-xmark')
@@ -20,52 +21,27 @@ inputTipo.forEach(input => {
   })
 });
 
+
+//todo o bloco acima: abre e fecha o formulario de cadastro.----------------
+
 function validaCadastroLancamentoForm(input){
   const tipoDeInput = input.dataset.tipo
 
-  if (validadores[tipoDeInput]) {
-    validadores[tipoDeInput](input)
-    
-  
-
+  if (validadores[tipoDeInput]) {//caso tenha o tipo de input dentro de validadores
+    validadores[tipoDeInput](input)//informa o input para o validadores para que possa seguir com a validação
   }
-  
-  
   setTimeout(() => {
-    
-    validarPreechimentoInputs(input)
+    validarPreechimentoInputs(input)//verifica se o input esta valido inserindo/removendo classe
   }, 100);
-
-
- 
-  
-  InputDropdownFormularioObrigatorio()
-  cadastroFormularioNaTabela(input)
+  InputDropdownFormularioObrigatorio()//torna a opção "selecionar" invalida para envio do form
+  cadastroFormularioNaTabela(input)//cadastra formulario na tabela
 }
 
-function alteraTypeInputQuantidade (){
-
-  let inputTipo = document.querySelector('[data-tipo="tipo"]');
-  let inputQuantidade = document.querySelector('[data-tipo="quantidade"]');
-  inputQuantidade.type ="text"
-  console.log('text')
-    
-  if(inputTipo.value==='Hora Extra'){
-    console.log('hora extra')
-    inputQuantidade.type="time"
-  }
-  
-}
-
+//tornam os dropdowns obrigatorios.
 function InputDropdownFormularioObrigatorio(){
   
   let inputsDropdown = DASH_formularioAdicionar.querySelectorAll("select");
   inputsDropdown.forEach(input => {
-    if (input.value === 'nenhum') {
-      input.setCustomValidity('Selecione uma opção');
-    } else {
-      input.setCustomValidity('');
-    }
     input.addEventListener('change', () => {
       if (input.value === 'nenhum') {
         input.setCustomValidity('Selecione uma opção');
@@ -83,15 +59,38 @@ window.onload = function() {
   InputDropdownFormularioObrigatorio()
 };
 
+function verificaDataInvalida(input){
+  let mensagem = ''
   
+  let dataHoje = new Date();
+  let dataRecebida = new Date(input.value)
+
+  if(dataRecebida>dataHoje){
+    mensagem = 'nao é possivel selecionar uma data maior que a data de hoje'
+  }
+  
+  input.setCustomValidity(mensagem)
+
+}
+
+function alteraTypeInputQuantidade (){
+
+  let inputTipo = document.querySelector('[data-tipo="tipo"]');
+  let inputQuantidade = document.querySelector('[data-tipo="quantidade"]');
+  inputQuantidade.type ="text"
+  console.log('text')
+    
+  if(inputTipo.value==='Hora Extra'){
+    console.log('hora extra')
+    inputQuantidade.type="time"
+  }
+  
+} 
 const validadores = {
   data:input => verificaDataInvalida(input),
   tipo:input => alteraTypeInputQuantidade(),
   
 }
-
-
-
 const tiposDeErro = [
   'customError',
   'valueMissing',
@@ -120,7 +119,7 @@ const mensagensDeErro = {
 
 }
 
-function mostramensagemErro(input){//precisa melhorar
+function mostramensagemErro(input){
   const tipoDeInput = input.dataset.tipo;
   let mensagem = ''
   tiposDeErro.forEach(erro =>{
@@ -132,19 +131,7 @@ function mostramensagemErro(input){//precisa melhorar
   return mensagem
  
 }
-function verificaDataInvalida(input){
-  let mensagem = ''
-  
-  let dataHoje = new Date();
-  let dataRecebida = new Date(input.value)
 
-  if(dataRecebida>dataHoje){
-    mensagem = 'nao é possivel selecionar uma data maior que a data de hoje'
-  }
-  
-  input.setCustomValidity(mensagem)
-
-}
 
 
 const dadosFormulario = {
@@ -155,37 +142,25 @@ const dadosFormulario = {
   data:"",
 }
 
-
+buscaDadosNoJson();//busca dados no JSON para imprimir na tabela;
 function cadastroFormularioNaTabela(input){
-  const tabela = document.querySelector('.UltimosCadastros-tabela');
+  //botao cadastrar
   const btnCadastrarForm = DASH_formularioAdicionar.querySelector('.formualario__botao');
-  
-
-  
-
   btnCadastrarForm.addEventListener('click', function(event){
-    event.preventDefault();
-
+    event.preventDefault();//previne padrao.
     // Identifica o tipo de campo do input pelo atributo data-tipo
     const tipoCampo = input.dataset.tipo;
-
    // Define o valor do input no campo correspondente da constante dadosFormulario
    dadosFormulario[tipoCampo] = input.value;
     
-
     // Verifica se todos os campos foram preenchidos
     if (Object.values(dadosFormulario).every(valor => valor !== '')) {
-      // Cria uma nova linha na tabela e adiciona as células com os valores do formulário
-      const novaLinha = tabela.insertRow(-1);
-      Object.values(dadosFormulario).forEach(valor => {
-        const celula = novaLinha.insertCell(-1);
-        celula.innerText = valor;
-      });
-
-      // Limpa o valor de todos os campos do formulário após cadastrar
+      // // Limpa o valor de todos os campos do formulário após cadastrar
       Object.values(input.form.elements).forEach(campo => campo.value = '');
+      cadastraDadosNoJSON()
     } 
     else {
+      //mostra estilizações informando o erro.
       mostramensagemErro(input);
     }
   });
@@ -234,13 +209,56 @@ function criarOptions(select) {
 }
 //-----------------------------------------------------------------
 
-fetch('http://localhost:3001/BancoHoras')
-    .then(response => response.json())
-    .then(data => {
-        data.forEach(dado => {
-        console.log(dado);
-        });
+
+function cadastraDadosNoJSON(){
+  fetch('http://localhost:3001/BancoHoras', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(dadosFormulario)
+  })
+  .then(response => response.json())
+  .then(data => {
+      console.log('Funcionário cadastrado com sucesso:', data);
+      buscaDadosNoJson()
+  })
+  .catch(error => console.error('Erro ao cadastrar funcionário:', error));
+
+  
+}
+
+function buscaDadosNoJson(){
+  const tabela = document.querySelector('.UltimosCadastros-tabela');
+
+  // Remove todas as linhas de dados existentes na tabela
+  const linhasDados = tabela.querySelectorAll('tr:not(:first-child)');
+  linhasDados.forEach(linha => linha.remove());
+  fetch('http://localhost:3001/BancoHoras')
+  .then(response => response.json())
+  .then(data => {
+    data.forEach(dadoHoras => {
+      exibeTabela(dadoHoras)
     })
+    
+
+  })
     .catch(error => console.log(error));
+}
 
 
+
+function exibeTabela(dadosHoras) {
+  const tabela = document.querySelector('.UltimosCadastros-tabela');
+
+  const novaLinha = tabela.insertRow(-1);
+  Object.keys(dadosHoras).forEach(propriedade => {
+    const celula = novaLinha.insertCell(-1);
+    celula.innerText = dadosHoras[propriedade];
+  });
+
+  Object.values(dadosFormulario).forEach((valor, index) => {
+    Object.keys(dadosFormulario)[index].value = '';
+  });
+  // buscaDadosNoJson();
+
+
+}
