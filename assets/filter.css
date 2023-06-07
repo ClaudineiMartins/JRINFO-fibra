@@ -30,6 +30,7 @@
     margin-left: auto;
 }
 
+
 .filter__container{
     
     justify-content: space-around;
@@ -41,10 +42,8 @@
     height: 4em;
     background-color: var(--corDeDestaque);
 }
-.filter__container--invisivel{
-    /* display: none; */
-}
 .filter__container--opcao{
+    
     box-sizing: border-box;
     padding: .4em;
     display: flex;
@@ -54,6 +53,9 @@
     background-color: var(--corDasSessoes);
     width: 15.5em;
     height: 3em;
+}
+.container-invisivel{
+    display: none;
 }
 .filter__container--opcao__titulo{
     font-weight: 500;
