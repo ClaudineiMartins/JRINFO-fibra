@@ -146,3 +146,66 @@ function totalServicosExtras(){
     }
     
 }
+
+const filtroPeriodoSeletor = document.querySelector('.filter__container--periodo')
+const botoesFiltroPeriodo = filtroPeriodoSeletor.querySelectorAll('[name]')
+let dataAtualSeletor = filtroPeriodoSeletor.querySelector('[name="mesAtual"]')
+
+
+
+botoesFiltroPeriodo.forEach(botao =>{
+
+    const tipoBotao = botao.getAttribute('name')
+    mesAtualFiltroPeriodo(botao,tipoBotao)
+
+
+    botao.addEventListener('click',()=>{
+        filtroAlteradorPeriodo(tipoBotao)
+        // console.log(filtroAlteradorPeriodo(tipoBotao))
+        
+        
+    })
+    
+})
+
+function mesAtualFiltroPeriodo(botao, tipoBotao){
+
+    if(tipoBotao==='mesAtual'){
+        let mesHoje = new Date().getMonth();
+        let anoHoje = new Date().getFullYear();
+        let MesAnoHoje = mesHoje + '/' + anoHoje
+
+        botao.innerText = MesAnoHoje
+    }
+    
+    
+
+
+}
+
+function filtroAlteradorPeriodo(tipoBotao){
+
+    let mesAtualSeletor = parseFloat(dataAtualSeletor.textContent.split('/')[0])//retorna o mes da data selecionada no periodo em numero(nao em string)
+    
+    if(tipoBotao=='mesAnterior'){
+        mesAtualSeletor -=1
+        let mesNovo = mesAtualSeletor;
+        let anoHoje = new Date().getFullYear();
+        dataAtualSeletor.innerText = mesNovo + '/' + anoHoje
+
+        console.log(mesAtualSeletor)
+
+    }
+    if(tipoBotao=='mesPosterior'){
+        console.log('passa')
+        mesAtualSeletor +=1
+        let mesNovo = mesAtualSeletor;
+        let anoHoje = new Date().getFullYear();
+        dataAtualSeletor.innerText = mesNovo + '/' + anoHoje
+    }
+    
+}
+
+
+
+
