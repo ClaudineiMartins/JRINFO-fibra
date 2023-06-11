@@ -70,7 +70,9 @@
     font-weight: 700;
 }
 .filter__container--periodo{
+    
     display: flex;
+    position: relative;
     align-items: center;
     justify-content: center;
     gap: .8em;
@@ -93,9 +95,11 @@
 
 }
 .filter__container--periodo__mes{
+    cursor: pointer;
     font-size: .9em;
     font-weight: 700;
     color: var(--corFonte_secundaria);
     gap: .8em;
 
 }
+
